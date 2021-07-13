@@ -121,7 +121,7 @@ void merge_sort_bu(vector<int> &nums, int begin, int end) {
         for (int i = 0; i < len; i += step) {
             int e = std::min(i + step, end);
             int ll = e - i;
-            int he = i + step / 2;
+            int he = std::min(i + step / 2, end);
             int j = i, k = he;
             int l = i;
             while (j < he && k < e) {
@@ -155,7 +155,7 @@ void merge_sort_bu(vector<int> &nums) {
 void fix_down(vector<int> &nums, int id, int len) {
     while (id * 2 + 1 < len) {
         int lc = id * 2 + 1, rc = lc + 1;
-        int l = rc > len || nums[lc] >= nums[rc] ? lc : rc;
+        int l = rc >= len || nums[lc] >= nums[rc] ? lc : rc;
         if (nums[l] > nums[id]) {
             std::swap(nums[id], nums[l]);
             id = l;
