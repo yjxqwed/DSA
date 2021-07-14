@@ -1,4 +1,5 @@
 **/.vscode/
+# macos debug symbols (introduced by `-g')
 **/*.dSYM/
 **/*.exe
 **/*.out

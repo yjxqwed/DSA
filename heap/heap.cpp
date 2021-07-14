@@ -41,7 +41,7 @@ void Heap::fix_up(int id) {
 void Heap::fix_down(int id) {
     while (id * 2 < heap_store_.size()) {
         int lc = id * 2, rc = lc + 1;
-        int l = rc > heap_store_.size() || heap_store_[lc] >= heap_store_[rc] ? lc : rc;
+        int l = rc >= heap_store_.size() || heap_store_[lc] >= heap_store_[rc] ? lc : rc;
         if (heap_store_[l] > heap_store_[id]) {
             std::swap(heap_store_[id], heap_store_[l]);
             id = l;
@@ -51,10 +51,21 @@ void Heap::fix_down(int id) {
     }
 }
 
+/**
+ * To heapify an array, we have 4 options: 
+ *   * top-down fix-up        ✅
+ *   * top-down fix-down      ❌
+ *   * bottom-up fix-up       ❌
+ *   * bottom-up fix-down     ✅
+ * 
+ */
 void Heap::heapify() {
+    // top-down fix-up (insert as a leaf node)
     // for (int i = 1; i < heap_store_.size(); i++) {
     //     fix_up(i);
     // }
+
+    // bottom-up fix-down (insert as the root node)
     for (int i = heap_store_.size() - 1; i >= 1; i--) {
         fix_down(i);
     }

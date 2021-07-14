@@ -22,7 +22,8 @@ void generate_random_array(int size, vector<int> &nums) {
 // [begin, end): left-close and right-open
 int get_pivot(vector<int> &nums, int begin, int end) {
     // pivot should be the median to get the best performance
-    return end - 1;
+    // return end - 1;
+    return begin + std::rand() % (end - begin);  // randomized quick sort
 }
 
 // [begin, end): left-close and right-open
@@ -70,6 +71,7 @@ void quick_sort(vector<int> &nums) {
 /* ========================================================================== */
 
 // top down
+// [begin, end): left-close and right-open
 void merge_sort(vector<int> &nums, int begin, int end) {
     int len = end - begin;
     if (len < 2) {
@@ -105,6 +107,7 @@ void merge_sort(vector<int> &nums) {
 }
 
 // bottom up
+// [begin, end): left-close and right-open
 void merge_sort_bu(vector<int> &nums, int begin, int end) {
     int len = end - begin;
     if (len < 2) {
