@@ -169,7 +169,7 @@ void fix_down(vector<int> &nums, int id, int len) {
 }
 
 void heapify(vector<int> &nums, int len) {
-    for (int i = len - 1; i >= 0; i--) {
+    for (int i = len / 2; i >= 0; i--) {
         fix_down(nums, i, len);
     }
 }

@@ -3,4 +3,5 @@
 **/*.dSYM/
 **/*.exe
 **/*.out
+**/.DS_Store
 
