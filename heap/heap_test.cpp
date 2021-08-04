@@ -28,7 +28,7 @@ void print_nums(const vector<int> &nums) {
 int main() {
     std::srand(std::time(nullptr));
     vector<int> nums;
-    generate_random_array(10, nums);
+    generate_random_array(100, nums);
     print_nums(nums);
     // for (int i = 0; i < nums.size(); i++) {
     //     h.push(nums[i]);

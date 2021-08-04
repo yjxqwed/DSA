@@ -1,10 +1,7 @@
 #include "heap.h"
 
 Heap::Heap(const std::vector<int> &nums) {
-    heap_store_.resize(nums.size() + 1);
-    for (int i = 0; i < nums.size(); i++) {
-        heap_store_[i + 1] = nums[i];
-    }
+    heap_store_ = nums;
     heapify();
 }
 
@@ -14,10 +11,10 @@ void Heap::push(int x) {
 }
 
 int Heap::pop() {
-    int ret = heap_store_[1];
-    heap_store_[1] = heap_store_[heap_store_.size() - 1];
+    int ret = heap_store_[0];
+    heap_store_[0] = heap_store_[heap_store_.size() - 1];
     heap_store_.pop_back();
-    fix_down(1);
+    fix_down(0);
     return ret;
 }
 
@@ -32,15 +29,15 @@ void Heap::update(int id, int x) {
 }
 
 void Heap::fix_up(int id) {
-    while (id > 1 && heap_store_[id] > heap_store_[id / 2]) {
-        std::swap(heap_store_[id], heap_store_[id / 2]);
-        id /= 2;
+    while (id > 0 && heap_store_[id] > heap_store_[(id - 1) / 2]) {
+        std::swap(heap_store_[id], heap_store_[(id - 1) / 2]);
+        id = (id - 1) / 2;
     }
 }
 
 void Heap::fix_down(int id) {
-    while (id * 2 < heap_store_.size()) {
-        int lc = id * 2, rc = lc + 1;
+    while (id * 2 + 1 < heap_store_.size()) {
+        int lc = id * 2 + 1, rc = lc + 1;
         int l = rc >= heap_store_.size() || heap_store_[lc] >= heap_store_[rc] ? lc : rc;
         if (heap_store_[l] > heap_store_[id]) {
             std::swap(heap_store_[id], heap_store_[l]);
@@ -66,16 +63,16 @@ void Heap::heapify() {
     // }
 
     // bottom-up fix-down (insert as the root node)
-    for (int i = heap_store_.size() - 1; i >= 1; i--) {
+    for (int i = heap_store_.size() / 2; i >= 0; i--) {
         fix_down(i);
     }
 }
 
 bool Heap::check() const {
-    for (int i = 1; i < heap_store_.size(); i++) {
-        int lc = i * 2, rc = lc + 1;
-        if (lc > heap_store_.size()) {
-        } else if (rc > heap_store_.size()) {
+    for (int i = 0; i < heap_store_.size(); i++) {
+        int lc = i * 2 + 1, rc = lc + 1;
+        if (lc >= heap_store_.size()) {
+        } else if (rc >= heap_store_.size()) {
             if (heap_store_[i] < heap_store_[lc]) {
                 return false;
             }
